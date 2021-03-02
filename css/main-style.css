@@ -1,0 +1,28 @@
+.header {
+    grid-area: header;
+}
+
+.main {
+    grid-area: main;
+}
+
+.detail {
+    grid-area: detail;
+}
+.footer {
+    grid-area: footer;
+}
+.container {
+    display: grid;
+    /* grid-template-rows: auto 400px auto; */
+    grid-template-areas:
+        "header header"
+        "main detail" "footer footer";
+    gap: 10px;
+    padding: 10px;
+}
+
+#records-list {
+    max-height: 200px;
+    overflow-y: auto;
+}

@@ -1,71 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
-  </head>
-  <body>
-    <div id="records-list"></div>
-    <div id="selected-record"></div>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        localStorage.clear();
-        class Record {
-          constructor(object) {
-            this.id = object.id;
-            this.report_date = object.report_date;
-            this.previous_day_doses_administered =
-              object.previous_day_doses_administered;
-            this.total_doses_administered = object.total_doses_administered;
-            this.total_doses_in_fully_vaccinated_individuals =
-              object.total_doses_in_fully_vaccinated_individuals;
-            this.total_individuals_fully_vaccinated =
-              object.total_individuals_fully_vaccinated;
-          }
-        }
+    <link rel="stylesheet" href="./css/main-style.css">
+</head>
 
-        $.ajax("./vaccine_doses.json", { method: "get" })
-          .then(function (response) {
-            const mappedRecords = response.map((record, index) => {
-              return new Record({ id: index + 1, ...record });
-            });
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>COVID-19 Vaccine Data in Ontario</h1>
+            <p>Assignment #2 | Name | ID </p>
+        </div>
+        <div class="main">
+            <div class="buttons">
+                <button id="load-locastorage-btn">Load LocalStorage</button>
+                <button id="display-list-btn">Display List</button>
+            </div>
+            <h2>Summary of Total Vaccine Doses Administered in Ontario.</h2>
+            <ul id="records-list"></ul>
+        </div>
+        <div class="detail">
+            <h2>Vaccine Doses Detail Information</h2>
+            <div id="record-details"></div>
+        </div>
+        <div class="footer">
+            Footer content
+        </div>
+    </div>
 
-            mappedRecords.forEach((record) => {
-              localStorage.setItem(record.report_date, JSON.stringify(record));
-            });
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+    <script src="./js/CovidRecord.js"></script>
+    <script src="./js/main-script.js"></script>
+</body>
 
-            let recordsList = "<ul>";
-            Object.entries(localStorage).forEach((key) => {
-              recordsList += `<li class="list-items">${key[0]}</li>`;
-            });
-            recordsList += "</ul>";
-
-            $("#records-list").append(recordsList);
-
-            $("body").on("click", ".list-items", function (event) {
-              const key = $(event.target).text();
-
-              const selectedObject = JSON.parse(localStorage.getItem(key));
-
-              let selectedRecordHtml =
-                "<h2>Vaccine Doses Detail Information</h2>";
-              selectedRecordHtml += `<p>${selectedObject.total_doses_administered}</p>`;
-
-              $("#selected-record").empty();
-              $("#selected-record").append(selectedRecordHtml);
-            });
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      });
-    </script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
-      integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
-      crossorigin="anonymous"
-    ></script>
-  </body>
 </html>
