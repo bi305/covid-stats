@@ -1,8 +1,9 @@
 body {
-  background-image: url("/images/ben-kolde-UTMq3x6TvaI-unsplash.jpg");
+  background-image: url("/images/jess-bailey-HyoRyMAVpNA-unsplash\ \(1\).jpg");
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  /* background-position: center; */
+  /* background-repeat: no-repeat; */
+  min-height: 100vh;
 }
 .header {
   grid-area: header;
